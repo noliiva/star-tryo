@@ -4,5 +4,5 @@ import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 
 export const menuItems = [
   { label: 'People', icon: <FaceIcon />, link: '/people' },
-  { label: 'Vehicules', icon: <DirectionsCarIcon />, link: '/vehicules' },
+  { label: 'Vehicles', icon: <DirectionsCarIcon />, link: '/vehicles' },
 ];

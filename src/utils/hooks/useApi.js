@@ -9,7 +9,7 @@ const useApi = (endpoint, config) => {
   const [state, setState] = useState({
     status: NOT_REQUESTED,
     data: responseIsNotAnArray ? {} : [],
-    paging: responseIsNotAnArray ? null : {},
+    paging: {},
     error: null,
   });
   const [params, setParams] = useState(initialParams || {});
@@ -28,14 +28,14 @@ const useApi = (endpoint, config) => {
         noAuth,
       }).then((response) => {
         if (!didCancel) {
-          const { ok, results, count, message } = response;
+          const { ok, data, message } = response;
 
           if (ok) {
             setState({
               ...state,
               status: SUCCESS,
-              data: results,
-              paging: !responseIsNotAnArray ? { total: count } : state.paging,
+              data: responseIsNotAnArray ? data : data.results,
+              paging: responseIsNotAnArray ? null : { total: data.count },
             });
           } else {
             setState({

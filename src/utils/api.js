@@ -69,7 +69,7 @@ const api = async ({ method = GET, endpoint, url, params, data, noAuth, headers 
     .then((response) => ({
       ok: true,
       status: response.status,
-      ...response.data,
+      data: response.data,
     }))
     .catch((error) => {
       const { response, request } = error;

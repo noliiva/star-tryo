@@ -6,9 +6,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { menuItems } from './constants';
 
+const getValueFromPath = () => {
+  const split = window.location.pathname.split('/');
+  if (split.includes('people')) return 0;
+  if (split.includes('vehicles')) return 1;
+
+  return -10;
+};
+
 export default function Menu() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(getValueFromPath());
 
   function handleChange(event, newValue) {
     setValue(newValue);
@@ -46,5 +54,6 @@ const useStyles = makeStyles((theme) => ({
     borderRight: `1px solid ${theme.palette.divider}`,
     backgroundColor: theme.palette.primary,
     color: theme.palette.primary.contrastText,
+    flexShrink: 0,
   },
 }));

@@ -6,7 +6,8 @@ import { ThemeProvider, makeStyles } from '@material-ui/styles';
 import theme from '../styles/theme';
 
 import People from './People';
-import Vehicules from './Vehicules';
+import Vehicles from './Vehicles';
+import NotFound from './NotFound';
 import Menu from '../components/Menu';
 import Header from '../components/Header';
 
@@ -23,8 +24,17 @@ export default () => {
         <Menu />
 
         <Router default="/people">
-          <People path="/people" />
-          <Vehicules path="/vehicules" />
+          <Route path="/people">
+            <People path="/" />
+            <People path="/:id" />
+          </Route>
+
+          <Route path="/vehicles">
+            <Vehicles path="/" />
+            <Vehicles path="/:id" />
+          </Route>
+
+          <NotFound default />
         </Router>
       </div>
     </ThemeProvider>
@@ -37,3 +47,5 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
   },
 }));
+
+const Route = ({ children }) => <>{children}</>;

@@ -20,22 +20,20 @@ export default ({ id }) => {
   const [loaded, setLoaded] = useState(false);
   const [page, setPage] = useState(1);
   const [selection, setSelection] = useState(null);
-  const [{ status, data, paging, error }, setParams] = useApi('people/', { params: { page } });
+  const [{ status, data, paging, error }, setParams] = useApi('vehicles/', { params: { page } });
 
   const {
     name,
-    birth_year,
-    eye_color,
-    gender,
-    hair_color,
-    height,
-    mass,
-    skin_color,
-    homeworld,
-    films = [],
-    species = [],
-    starships = [],
-    vehicles = [],
+    model,
+    manufacturer,
+    length,
+    cost_in_credits,
+    crew,
+    passengers,
+    max_atmosphering_speed,
+    cargo_capacity,
+    consumables,
+    pilots = [],
   } = selection || {};
 
   const handleNextPage = () => {
@@ -44,17 +42,17 @@ export default ({ id }) => {
   const handlePrevPage = () => {
     setPage(page - 1);
   };
-  const handleSelection = (people) => {
-    setSelection(people);
-    navigate(`/people/${extractPeopleId(people.url)}`);
+  const handleSelection = (i) => {
+    setSelection(i);
+    navigate(`/vehicles/${extractVehicleId(i.url)}`);
   };
 
   useEffect(() => {
     (async () => {
       if (id) {
-        const s = data.find((p) => p.url === `https://swapi.co/api/people/${id}/`);
+        const s = data.find((p) => p.url === `https://swapi.co/api/vehicles/${id}/`);
         if (!s) {
-          const response = await api({ endpoint: `people/${id}/` });
+          const response = await api({ endpoint: `vehicles/${id}/` });
           if (response.ok) {
             setSelection(response.data);
           } else {
@@ -78,7 +76,7 @@ export default ({ id }) => {
   return (
     <div className={classes.container}>
       <div className={classes.menu}>
-        <Typography variant="h4">People</Typography>
+        <Typography variant="h4">Vehicles</Typography>
 
         <List component="nav">
           <ListItem className={classes.spacer} />
@@ -88,7 +86,7 @@ export default ({ id }) => {
               button
               key={e.url}
               onClick={() => handleSelection(e)}
-              selected={selection && extractPeopleId(selection.url) === extractPeopleId(e.url)}
+              selected={selection && extractVehicleId(selection.url) === extractVehicleId(e.url)}
             >
               <ListItemText primary={e.name} />
             </ListItem>
@@ -130,110 +128,74 @@ export default ({ id }) => {
           </Typography>
           <div className={classes.column}>
             <Typography variant="h6" component="span">
-              Gender
+              Model
             </Typography>{' '}
-            <Typography variant="body1">{gender}</Typography>
+            <Typography variant="body1">{model}</Typography>
             <br />
             <Typography variant="h6" component="span">
-              Height
+              Length
             </Typography>{' '}
             <Typography variant="body1">
-              {height}
-              {height !== 'unknown' && ' cm'}
+              {length}
+              {length !== 'unknown' && ' m'}
             </Typography>
             <br />
             <Typography variant="h6" component="span">
-              Mass
+              Manufacturer
             </Typography>{' '}
-            <Typography variant="body1">
-              {mass}
-              {mass !== 'unknown' && ' kg'}
-            </Typography>
+            <Typography variant="body1">{manufacturer}</Typography>
             <br />
             <Typography variant="h6" component="span">
-              Hair color
+              Cost in credits
             </Typography>{' '}
-            <Typography variant="body1">{hair_color}</Typography>
+            <Typography variant="body1">{cost_in_credits}</Typography>
             <br />
             <Typography variant="h6" component="span">
-              Skin color
+              Maximum atmosphering speed
             </Typography>{' '}
-            <Typography variant="body1">{skin_color}</Typography>
+            <Typography variant="body1">{max_atmosphering_speed}</Typography>
             <br />
             <Typography variant="h6" component="span">
-              Eye color
+              Cargo capacity
             </Typography>{' '}
-            <Typography variant="body1">{eye_color}</Typography>
+            <Typography variant="body1">{cargo_capacity}</Typography>
+            <br />
+            <Typography
+              variant="h6"
+              component="span"
+              title="The maximum length of time that this vehicle can provide consumables for its entire crew without having to resupply."
+            >
+              Consumables
+            </Typography>{' '}
+            <Typography variant="body1">{consumables}</Typography>
           </div>
 
           <div className={classes.column}>
             <Typography variant="h6" component="span">
-              Birth year
-            </Typography>{' '}
-            <Typography variant="body1">{birth_year}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Homeworld
+              Pilots
             </Typography>{' '}
             <Typography variant="body1">
-              <Data link={homeworld} />
-            </Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Films
-            </Typography>{' '}
-            <Typography variant="body1">
-              {films.length === 0 && 'N/A'}
-              {films.map((e, i, l) => (
+              {pilots.length === 0 && 'N/A'}
+              {pilots.map((e, i, l) => (
                 <React.Fragment key={e}>
-                  <Data link={e} param="title" />
-                  {i + 1 !== l.length && ', '}
-                </React.Fragment>
-              ))}
-            </Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Species
-            </Typography>{' '}
-            <Typography variant="body1">
-              {species.length === 0 && 'N/A'}
-              {species.map((e, i, l) => (
-                <React.Fragment key={e}>
-                  <Data key={e} link={e} />
-                  {i + 1 !== l.length && ', '}
-                </React.Fragment>
-              ))}
-            </Typography>
-            <br />
-            <Typography variant="h6">Vehicles</Typography>{' '}
-            <Typography variant="body1">
-              {vehicles.length === 0 && 'N/A'}
-              {vehicles.map((e, i, l) => (
-                <React.Fragment key={e}>
-                  <MUILink
-                    to={`/vehicles/${extractVehicleId(e)}`}
-                    component={Link}
-                    color="secondary"
-                  >
-                    <Data key={e} link={e} />
+                  <MUILink to={`/people/${extractPeopleId(e)}`} component={Link} color="secondary">
+                    <Data link={e} />
                   </MUILink>
+
                   {i + 1 !== l.length && ', '}
                 </React.Fragment>
               ))}
             </Typography>
             <br />
             <Typography variant="h6" component="span">
-              Starships
+              Crew
             </Typography>{' '}
-            <Typography variant="body1">
-              {starships.length === 0 && 'N/A'}
-              {starships.map((e, i, l) => (
-                <React.Fragment key={e}>
-                  <Data key={e} link={e} internalLink="/vehicles/:id" />
-                  {i + 1 !== l.length && ', '}
-                </React.Fragment>
-              ))}
-            </Typography>
+            <Typography variant="body1">{crew}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Passengers
+            </Typography>{' '}
+            <Typography variant="body1">{passengers}</Typography>
           </div>
         </div>
       )}
@@ -265,7 +227,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridRowGap: theme.spacing(4),
     gridColumnGap: theme.spacing(6),
-    gridTemplateColumns: '250px minmax(250px, 500px)',
+    gridTemplateColumns: '300px minmax(250px, 500px)',
     gridTemplateRows: '2rem auto',
     padding: theme.spacing(4),
   },
