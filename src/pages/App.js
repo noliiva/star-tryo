@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from '@reach/router';
+import { Location, Router, Redirect } from '@reach/router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
 
@@ -21,9 +21,11 @@ export default () => {
       <Header />
 
       <div className={classes.root}>
-        <Menu />
+        <Location>{({ location }) => <Menu location={location} />}</Location>
 
-        <Router default="/people">
+        <Router>
+          <Redirect from="/" to="/people" noThrow />
+
           <Route path="/people">
             <People path="/" />
             <People path="/:id" />

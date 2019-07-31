@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Tab from '@material-ui/core/Tab';
 import { navigate } from '@reach/router';
 import Tabs from '@material-ui/core/Tabs';
@@ -6,17 +6,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { menuItems } from './constants';
 
-const getValueFromPath = () => {
-  const split = window.location.pathname.split('/');
+const getValueFromPath = (location) => {
+  const split = location.pathname.split('/');
   if (split.includes('people')) return 0;
   if (split.includes('vehicles')) return 1;
 
-  return -10;
+  return false;
 };
 
-export default function Menu() {
+export default function Menu({ location }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(getValueFromPath());
+  const [value, setValue] = React.useState(getValueFromPath(location));
+
+  useEffect(() => {
+    setValue(getValueFromPath(location));
+  }, [location]);
 
   function handleChange(event, newValue) {
     setValue(newValue);
@@ -41,6 +45,7 @@ export default function Menu() {
             navigate(link);
           }}
           href={link}
+          value={index}
         />
       ))}
     </Tabs>
