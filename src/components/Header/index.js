@@ -4,7 +4,6 @@ import { loadCSS } from 'fg-loadcss';
 import Icon from '@material-ui/core/Icon';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import StarsIcon from '@material-ui/icons/Stars';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -21,16 +20,20 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <StarsIcon color="secondary" />
+          <Icon className="fab fa-react" color="secondary" />
           &nbsp;&nbsp;
           <Typography variant="h6" className={classes.title} color="secondary">
             Star Tryo
           </Typography>
-          <a href="https://github.com/noliiva/star-tryo" target="_blank" rel="noreferrer noopener">
-            <Typography variant="body2" className={classes.subtitle}>
+          <Typography variant="body2" className={classes.subtitle}>
+            <a
+              href="https://github.com/noliiva/star-tryo"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               <Icon className={clsx(classes.icon, 'fab fa-github')} />
-            </Typography>
-          </a>
+            </a>
+          </Typography>
         </Toolbar>
       </AppBar>
     </div>

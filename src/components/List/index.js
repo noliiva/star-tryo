@@ -64,16 +64,22 @@ export default ({ id, apiKey, path, title, listItemParam = 'name', children }) =
         <List component="nav">
           <ListItem className={classes.spacer} />
 
-          {data.map((e) => (
-            <ListItem
-              button
-              key={e.url}
-              onClick={() => handleSelection(e)}
-              selected={selection && extractId(apiKey, selection.url) === extractId(apiKey, e.url)}
-            >
-              <ListItemText primary={e[listItemParam]} />
-            </ListItem>
-          ))}
+          {data.map((e) => {
+            const isSelected =
+              selection && extractId(apiKey, selection.url) === extractId(apiKey, e.url);
+
+            return (
+              <ListItem
+                button
+                key={e.url}
+                onClick={() => handleSelection(e)}
+                selected={isSelected}
+                classes={{ selected: classes.active }}
+              >
+                <ListItemText primary={e[listItemParam]} />
+              </ListItem>
+            );
+          })}
 
           {status === LOADING && (
             <ListItem>

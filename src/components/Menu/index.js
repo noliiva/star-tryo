@@ -36,10 +36,12 @@ export default function Menu({ location }) {
       onChange={handleChange}
       aria-label="simple tabs example"
       className={classes.tabs}
+      textColor="secondary"
     >
       {menuItems.map(({ label, icon, link }, index) => (
         <Tab
           key={label.toLocaleLowerCase()}
+          className={classes.tab}
           label={label}
           icon={icon}
           component="a"
@@ -61,7 +63,9 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(2)}px 0px`,
     borderRight: `1px solid ${theme.palette.divider}`,
     backgroundColor: theme.palette.primary,
-    color: theme.palette.primary.contrastText,
     flexShrink: 0,
+  },
+  tab: {
+    color: theme.palette.primary.contrastText,
   },
 }));
