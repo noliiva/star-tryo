@@ -18,7 +18,7 @@ const useApi = (endpoint, config) => {
     let didCancel = false;
 
     (async () => {
-      setState({ ...state, status: LOADING });
+      setState((state) => ({ ...state, status: LOADING }));
 
       await fetch({
         endpoint,
@@ -31,18 +31,18 @@ const useApi = (endpoint, config) => {
           const { ok, data, message } = response;
 
           if (ok) {
-            setState({
+            setState((state) => ({
               ...state,
               status: SUCCESS,
               data: responseIsNotAnArray ? data : data.results,
               paging: responseIsNotAnArray ? null : { total: data.count },
-            });
+            }));
           } else {
-            setState({
+            setState((state) => ({
               ...state,
               status: FAILURE,
               error: message || 'Error',
-            });
+            }));
           }
         }
       });
@@ -51,7 +51,7 @@ const useApi = (endpoint, config) => {
     return () => {
       didCancel = true;
     };
-  }, [params]);
+  }, [endpoint, headers, method, params, noAuth, responseIsNotAnArray]);
 
   return [state, setParams];
 };

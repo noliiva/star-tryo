@@ -13,37 +13,38 @@ export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="vehicles" id={id} title="Vehicles">
+    <List apiKey="starships" id={id} title="Starships">
       {({
         name,
         model,
+        starship_class,
         manufacturer,
-        length,
         cost_in_credits,
+        length,
         crew,
         passengers,
         max_atmosphering_speed,
+        hyperdrive_rating,
+        MGLT,
         cargo_capacity,
         consumables,
+        films = [],
         pilots = [],
       }) => (
         <div className={classes.content}>
           <Typography variant="h4" component="span" className={classes.title}>
             {name}
           </Typography>
-          <div className={classes.column}>
+          <div>
             <Typography variant="h6" component="span">
               Model
             </Typography>{' '}
             <Typography variant="body1">{model}</Typography>
             <br />
             <Typography variant="h6" component="span">
-              Length
+              Starship class
             </Typography>{' '}
-            <Typography variant="body1">
-              {length}
-              {length !== 'unknown' && ' m'}
-            </Typography>
+            <Typography variant="body1">{starship_class}</Typography>
             <br />
             <Typography variant="h6" component="span">
               Manufacturer
@@ -56,26 +57,53 @@ export default ({ id }) => {
             <Typography variant="body1">{cost_in_credits}</Typography>
             <br />
             <Typography variant="h6" component="span">
+              Length
+            </Typography>{' '}
+            <Typography variant="body1">
+              {length}
+              {length !== 'unknown' && ' m'}
+            </Typography>
+            <br />
+            <Typography variant="h6" component="span">
               Maximum atmosphering speed
             </Typography>{' '}
             <Typography variant="body1">{max_atmosphering_speed}</Typography>
+          </div>
+
+          <div>
+            <Typography variant="h6" component="span">
+              Crew
+            </Typography>{' '}
+            <Typography variant="body1">{crew}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Passengers
+            </Typography>{' '}
+            <Typography variant="body1">{passengers}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Hyperdrive rating
+            </Typography>{' '}
+            <Typography variant="body1">{hyperdrive_rating}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Megalights
+            </Typography>{' '}
+            <Typography variant="body1">{MGLT}</Typography>
             <br />
             <Typography variant="h6" component="span">
               Cargo capacity
             </Typography>{' '}
-            <Typography variant="body1">{cargo_capacity}</Typography>
+            <Typography variant="body1">
+              {cargo_capacity}
+              {cargo_capacity !== 'unknown' && ' kg'}
+            </Typography>
             <br />
-            <Typography
-              variant="h6"
-              component="span"
-              title="The maximum length of time that this vehicle can provide consumables for its entire crew without having to resupply."
-            >
+            <Typography variant="h6" component="span">
               Consumables
             </Typography>{' '}
             <Typography variant="body1">{consumables}</Typography>
-          </div>
-
-          <div className={classes.column}>
+            <br />
             <Typography variant="h6" component="span">
               Pilots
             </Typography>{' '}
@@ -88,23 +116,31 @@ export default ({ id }) => {
                     component={Link}
                     color="secondary"
                   >
-                    <Data link={e} />
+                    <Data key={e} link={e} />
                   </MUILink>
-
                   {i + 1 !== l.length && ', '}
                 </React.Fragment>
               ))}
             </Typography>
             <br />
             <Typography variant="h6" component="span">
-              Crew
+              Films
             </Typography>{' '}
-            <Typography variant="body1">{crew}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Passengers
-            </Typography>{' '}
-            <Typography variant="body1">{passengers}</Typography>
+            <Typography variant="body1">
+              {films.length === 0 && 'N/A'}
+              {films.map((e, i, l) => (
+                <React.Fragment key={e}>
+                  <MUILink
+                    to={`/films/${extractId('films', e)}`}
+                    component={Link}
+                    color="secondary"
+                  >
+                    <Data key={e} link={e} param="title" />
+                  </MUILink>
+                  {i + 1 !== l.length && ', '}
+                </React.Fragment>
+              ))}
+            </Typography>
           </div>
         </div>
       )}
@@ -117,7 +153,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridRowGap: theme.spacing(4),
     gridColumnGap: theme.spacing(6),
-    gridTemplateColumns: '300px minmax(250px, 500px)',
+    gridTemplateColumns: '250px minmax(250px, 500px)',
     gridTemplateRows: '2rem auto',
     padding: theme.spacing(4),
   },

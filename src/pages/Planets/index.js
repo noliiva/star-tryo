@@ -13,98 +13,119 @@ export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="vehicles" id={id} title="Vehicles">
+    <List apiKey="planets" id={id} title="Planets">
       {({
         name,
-        model,
-        manufacturer,
-        length,
-        cost_in_credits,
-        crew,
-        passengers,
-        max_atmosphering_speed,
-        cargo_capacity,
-        consumables,
-        pilots = [],
+        diameter,
+        rotation_period,
+        orbital_period,
+        gravity,
+        population,
+        climate,
+        terrain,
+        surface_water,
+        residents = [],
+        films = [],
       }) => (
         <div className={classes.content}>
           <Typography variant="h4" component="span" className={classes.title}>
             {name}
           </Typography>
-          <div className={classes.column}>
+          <div>
             <Typography variant="h6" component="span">
-              Model
-            </Typography>{' '}
-            <Typography variant="body1">{model}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Length
+              Diameter
             </Typography>{' '}
             <Typography variant="body1">
-              {length}
-              {length !== 'unknown' && ' m'}
+              {diameter}
+              {diameter !== 'unknonw' && ' km'}
             </Typography>
             <br />
             <Typography variant="h6" component="span">
-              Manufacturer
-            </Typography>{' '}
-            <Typography variant="body1">{manufacturer}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Cost in credits
-            </Typography>{' '}
-            <Typography variant="body1">{cost_in_credits}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Maximum atmosphering speed
-            </Typography>{' '}
-            <Typography variant="body1">{max_atmosphering_speed}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Cargo capacity
-            </Typography>{' '}
-            <Typography variant="body1">{cargo_capacity}</Typography>
-            <br />
-            <Typography
-              variant="h6"
-              component="span"
-              title="The maximum length of time that this vehicle can provide consumables for its entire crew without having to resupply."
-            >
-              Consumables
-            </Typography>{' '}
-            <Typography variant="body1">{consumables}</Typography>
-          </div>
-
-          <div className={classes.column}>
-            <Typography variant="h6" component="span">
-              Pilots
+              Rotation period
             </Typography>{' '}
             <Typography variant="body1">
-              {pilots.length === 0 && 'N/A'}
-              {pilots.map((e, i, l) => (
+              {rotation_period}
+              {rotation_period !== 'unknown' && ' hours'}
+            </Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Orbital period
+            </Typography>{' '}
+            <Typography variant="body1">
+              {orbital_period}
+              {orbital_period !== 'unknown' && ' days'}
+            </Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Gravity
+            </Typography>{' '}
+            <Typography variant="body1">
+              {gravity}
+              {gravity !== 'unknown' && ` G${gravity > 1 ? 's' : ''}`}
+            </Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Population
+            </Typography>{' '}
+            <Typography variant="body1">{population}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Climate
+            </Typography>{' '}
+            <Typography variant="body1">{climate}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Terrain
+            </Typography>{' '}
+            <Typography variant="body1">{terrain}</Typography>
+            <br />
+            <Typography variant="h6" component="span">
+              Surface water
+            </Typography>{' '}
+            <Typography variant="body1">
+              {surface_water}
+              {surface_water !== 'unknown' && ' %'}
+            </Typography>
+          </div>
+
+          <div>
+            <Typography variant="h6" component="span">
+              Residents
+            </Typography>{' '}
+            <Typography variant="body1">
+              {residents.length === 0 && 'N/A'}
+              {residents.map((e, i, l) => (
                 <React.Fragment key={e}>
                   <MUILink
                     to={`/characters/${extractId('people', e)}`}
                     component={Link}
                     color="secondary"
                   >
-                    <Data link={e} />
+                    <Data key={e} link={e} />
                   </MUILink>
-
                   {i + 1 !== l.length && ', '}
                 </React.Fragment>
               ))}
             </Typography>
             <br />
             <Typography variant="h6" component="span">
-              Crew
+              Films
             </Typography>{' '}
-            <Typography variant="body1">{crew}</Typography>
-            <br />
-            <Typography variant="h6" component="span">
-              Passengers
-            </Typography>{' '}
-            <Typography variant="body1">{passengers}</Typography>
+            <Typography variant="body1">
+              {films.length === 0 && 'N/A'}
+              {films.map((e, i, l) => (
+                <React.Fragment key={e}>
+                  <MUILink
+                    to={`/films/${extractId('films', e)}`}
+                    component={Link}
+                    color="secondary"
+                  >
+                    <Data key={e} link={e} param="title" />
+                  </MUILink>
+                  {i + 1 !== l.length && ', '}
+                </React.Fragment>
+              ))}
+            </Typography>
           </div>
         </div>
       )}
@@ -117,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridRowGap: theme.spacing(4),
     gridColumnGap: theme.spacing(6),
-    gridTemplateColumns: '300px minmax(250px, 500px)',
+    gridTemplateColumns: '250px minmax(250px, 500px)',
     gridTemplateRows: '2rem auto',
     padding: theme.spacing(4),
   },

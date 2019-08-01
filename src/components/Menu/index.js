@@ -7,11 +7,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { menuItems } from './constants';
 
 const getValueFromPath = (location) => {
-  const split = location.pathname.split('/');
-  if (split.includes('people')) return 0;
-  if (split.includes('vehicles')) return 1;
+  const match = menuItems
+    .map((e, i) => {
+      const regexp = new RegExp(e.link);
+      return regexp.test(location.pathname) ? i : null;
+    })
+    .find((e) => e !== null);
 
-  return false;
+  return match !== undefined ? match : false;
 };
 
 export default function Menu({ location }) {

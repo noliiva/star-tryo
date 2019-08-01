@@ -45,5 +45,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -150,
     height: '75vh',
     color: theme.palette.divider,
+    pointerEvents: 'none',
   },
 }));

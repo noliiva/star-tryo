@@ -5,9 +5,13 @@ import { ThemeProvider, makeStyles } from '@material-ui/styles';
 
 import theme from '../styles/theme';
 
-import People from './People';
+import Films from './Films';
+import Planets from './Planets';
+import Species from './Species';
 import Vehicles from './Vehicles';
 import NotFound from './NotFound';
+import Starships from './Starships';
+import Characters from './Characters';
 import Menu from '../components/Menu';
 import Header from '../components/Header';
 
@@ -24,11 +28,31 @@ export default () => {
         <Location>{({ location }) => <Menu location={location} />}</Location>
 
         <Router>
-          <Redirect from="/" to="/people" noThrow />
+          <Redirect from="/" to="/characters" noThrow />
 
-          <Route path="/people">
-            <People path="/" />
-            <People path="/:id" />
+          <Route path="/films">
+            <Films path="/" />
+            <Films path="/:id" />
+          </Route>
+
+          <Route path="/characters">
+            <Characters path="/" />
+            <Characters path="/:id" />
+          </Route>
+
+          <Route path="/species">
+            <Species path="/" />
+            <Species path="/:id" />
+          </Route>
+
+          <Route path="/planets">
+            <Planets path="/" />
+            <Planets path="/:id" />
+          </Route>
+
+          <Route path="/starships">
+            <Starships path="/" />
+            <Starships path="/:id" />
           </Route>
 
           <Route path="/vehicles">
