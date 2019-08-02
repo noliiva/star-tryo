@@ -9,11 +9,13 @@ import { extractId } from '../../utils';
 import Data from '../../components/Data';
 import List from '../../components/List';
 
+import { ReactComponent as StormTrooper } from '../../assets/images/Star_Wars_Storm-Trooper.svg';
+
 export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="species" id={id} title="Species">
+    <List apiKey="species" id={id} title="Species" BackgroundComponent={StormTrooper}>
       {({
         name,
         classification,

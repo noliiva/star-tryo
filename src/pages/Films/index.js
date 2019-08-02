@@ -7,14 +7,24 @@ import Typography from '@material-ui/core/Typography';
 
 import { extractId } from '../../utils';
 
+import Text from '../../components/Text';
 import Data from '../../components/Data';
 import List from '../../components/List';
+
+import { ReactComponent as BobaFett } from '../../assets/images/Star_Wars_Boba_Fett.svg';
 
 export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="films" id={id} title="Films" listItemParam="title">
+    <List
+      apiKey="films"
+      id={id}
+      title="Films"
+      listItemParam="title"
+      BackgroundComponent={BobaFett}
+      sortList={(a, b) => a.episode_id - b.episode_id}
+    >
       {({
         title,
         episode_id,
@@ -34,14 +44,16 @@ export default ({ id }) => {
           </Typography>
           <div>
             <Typography variant="h6" component="span">
-              Episode
-            </Typography>{' '}
-            <Typography variant="body1">{episode_id}</Typography>
+              Episode {episode_id}
+            </Typography>
+            <Typography variant="body1" />
             <br />
             <Typography variant="h6" component="span">
               Opening crawl
             </Typography>{' '}
-            <Typography variant="body1">{opening_crawl}</Typography>
+            <Typography variant="body1" component="div">
+              <Text>{opening_crawl}</Text>
+            </Typography>
             <br />
             <Typography variant="h6" component="span">
               Director

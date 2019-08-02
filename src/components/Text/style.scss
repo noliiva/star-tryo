@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=News+Cycle:400, 700');
+
+.starwars {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-weight: 700;
+  font-size: 1em;
+  font-family: 'News Cycle', sans-serif;
+  letter-spacing: 0.15em;
+  color: #f9d71c;
+  background: #000;
+  overflow: hidden;
+  margin: 0;
+
+  section {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    z-index: 1;
+  }
+
+  .start {
+    font-size: 200%;
+    // $start-width: 14em;
+    width: 14em;
+    margin: -4em 0 0 (-14em / 2);
+    text-align: center;
+    cursor: pointer;
+
+    span {
+      color: rgb(75, 213, 238);
+    }
+  }
+
+  .intro {
+    // $intro-width: 15em;
+    width: 15em;
+    margin: 0 0 0 (-15em / 2);
+    font-size: 200%;
+    font-weight: 400;
+    color: rgb(75, 213, 238);
+    opacity: 0;
+    animation: intro 6s ease-out 1s;
+  }
+
+  .logo {
+    opacity: 0;
+    animation: logo 9s ease-out 9s;
+
+    svg {
+      width: inherit;
+    }
+  }
+
+  .titles {
+    // $titles-width: 14.65em;
+    width: 14.65em;
+    margin: 0 0 0 (-14.65em / 2);
+    top: auto;
+    bottom: 0;
+    height: 50em;
+    font-size: 350%;
+    text-align: justify;
+    overflow: hidden;
+    transform-origin: 50% 100%;
+    transform: perspective(300px) rotateX(25deg);
+
+    > div {
+      position: absolute;
+      top: 100%;
+      animation: titles 81s linear 13s;
+
+      > p {
+        margin: 1.35em 0 1.85em 0;
+        line-height: 1.35em;
+
+        //@include backface-visibility(hidden);
+      }
+    }
+  }
+}
+
+@keyframes intro {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes logo {
+  0% {
+    // $logo-width: 18em;
+    width: 18em;
+    margin: (-18em / 2) 0 0 (-18em / 2);
+
+    transform: scale(2.75);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+
+    // $logo-width: 18em;
+    width: 18em;
+    margin: (-18em / 2) 0 0 (-18em / 2);
+  }
+  100% {
+    transform: scale(0.1);
+    opacity: 0;
+
+    // $logo-width: 18em;
+    width: 18em;
+    margin: (-18em / 2) 0 0 (-18em / 2);
+  }
+}
+
+@keyframes titles {
+  0% {
+    top: 100%;
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 20%;
+    opacity: 0;
+  }
+}

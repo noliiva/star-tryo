@@ -12,7 +12,17 @@ import { extractId } from '../../utils';
 import useApi from '../../utils/hooks/useApi';
 import api, { LOADING, SUCCESS, FAILURE } from '../../utils/api';
 
-export default ({ id, apiKey, path, title, listItemParam = 'name', children }) => {
+export default ({
+  id,
+  apiKey,
+  path,
+  title,
+  listItemParam = 'name',
+  onClickItem,
+  sortList = () => true,
+  BackgroundComponent,
+  children,
+}) => {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [page, setPage] = useState(1);
@@ -64,15 +74,18 @@ export default ({ id, apiKey, path, title, listItemParam = 'name', children }) =
         <List component="nav">
           <ListItem className={classes.spacer} />
 
-          {data.map((e) => {
-            const isSelected =
-              selection && extractId(apiKey, selection.url) === extractId(apiKey, e.url);
+          {data.sort(sortList).map((e) => {
+            const id = extractId(apiKey, e.url);
+            const isSelected = selection && extractId(apiKey, selection.url) === id;
 
             return (
               <ListItem
                 button
                 key={e.url}
-                onClick={() => handleSelection(e)}
+                onClick={() => {
+                  onClickItem && onClickItem(id);
+                  handleSelection(e);
+                }}
                 selected={isSelected}
                 classes={{ selected: classes.active }}
               >
@@ -113,6 +126,8 @@ export default ({ id, apiKey, path, title, listItemParam = 'name', children }) =
       </div>
 
       {!!selection && children(selection)}
+
+      <BackgroundComponent className={classes.backgroundImage} />
     </div>
   );
 };
@@ -151,5 +166,14 @@ const useStyles = makeStyles((theme) => ({
   },
   active: {
     color: theme.palette.secondary.main,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    height: '25vw',
+    width: 'auto',
+    bottom: theme.spacing(5),
+    right: theme.spacing(10),
+    color: '#363b49',
+    zIndex: -1,
   },
 }));

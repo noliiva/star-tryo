@@ -9,11 +9,13 @@ import { extractId } from '../../utils';
 import Data from '../../components/Data';
 import List from '../../components/List';
 
+import { ReactComponent as DeathStar } from '../../assets/images/Star_Wars_Death_Star.svg';
+
 export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="planets" id={id} title="Planets">
+    <List apiKey="planets" id={id} title="Planets" BackgroundComponent={DeathStar}>
       {({
         name,
         diameter,

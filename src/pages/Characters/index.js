@@ -4,16 +4,31 @@ import MUILink from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 
+import { sounds } from './constants';
 import { extractId } from '../../utils';
 
 import Data from '../../components/Data';
 import List from '../../components/List';
 
+import { ReactComponent as DarthVader } from '../../assets/images/Star_Wars_Darth_Vader.svg';
+
 export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="people" path="characters" id={id} title="Characters">
+    <List
+      apiKey="people"
+      path="characters"
+      id={id}
+      title="Characters"
+      BackgroundComponent={DarthVader}
+      onClickItem={(id) => {
+        if (sounds[id]) {
+          const audio = new Audio(sounds[id]);
+          audio.play();
+        }
+      }}
+    >
       {({
         name,
         birth_year,
@@ -31,7 +46,8 @@ export default ({ id }) => {
       }) => (
         <div className={classes.content}>
           <Typography variant="h4" component="span" className={classes.title}>
-            {name}
+            {name}&nbsp;&nbsp;
+            <span className={classes.id}>#{id}</span>
           </Typography>
           <div>
             <Typography variant="h6" component="span">
@@ -176,5 +192,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     gridColumn: '1 / span 2',
     marginBottom: theme.spacing(4),
+  },
+  id: {
+    color: theme.palette.divider,
+    fontWeight: 'bold',
   },
 }));

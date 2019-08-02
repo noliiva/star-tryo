@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
 
 import theme from '../styles/theme';
+import { cookies } from '../constants';
 
 import Films from './Films';
 import Planets from './Planets';
@@ -17,6 +18,7 @@ import Header from '../components/Header';
 
 export default () => {
   const classes = useStyles();
+  console.info(`${cookies}`);
 
   return (
     <ThemeProvider theme={theme}>

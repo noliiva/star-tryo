@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 
-import { ReactComponent as BB8 } from '../../assets/bb8.svg';
+import { ReactComponent as BB8 } from '../../assets/images/bb8.svg';
 
 export default () => {
   const classes = useStyles();

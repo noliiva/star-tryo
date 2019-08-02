@@ -9,11 +9,13 @@ import { extractId } from '../../utils';
 import Data from '../../components/Data';
 import List from '../../components/List';
 
+import { ReactComponent as R2D2 } from '../../assets/images/Star_Wars_R2D2.svg';
+
 export default ({ id }) => {
   const classes = useStyles();
 
   return (
-    <List apiKey="vehicles" id={id} title="Vehicles">
+    <List apiKey="vehicles" id={id} title="Vehicles" BackgroundComponent={R2D2}>
       {({
         name,
         model,
