@@ -52,7 +52,7 @@ export default ({ children }) => {
   return (
     <>
       <IconButton color="inherit" onClick={handleStart}>
-        <PlayIcon />
+        <PlayIcon fontSize="large" />
       </IconButton>
 
       <audio preload="auto" ref={audioRef}>
@@ -80,7 +80,7 @@ const Crawl = ({ children, muted, onToggleSound, onClose }) => (
       onClick={onToggleSound}
       style={{ position: 'absolute', bottom: 0, right: 0 }}
     >
-      {muted ? <VolumeOffIcon /> : <VolumeUpIcon />}
+      {muted ? <VolumeOffIcon fontSize="large" /> : <VolumeUpIcon fontSize="large" />}
     </IconButton>
 
     <IconButton
@@ -88,7 +88,7 @@ const Crawl = ({ children, muted, onToggleSound, onClose }) => (
       onClick={onClose}
       style={{ position: 'absolute', top: 0, right: 0 }}
     >
-      <CloseIcon />
+      <CloseIcon fontSize="large" />
     </IconButton>
 
     <div className="animation">
@@ -108,6 +108,12 @@ const Crawl = ({ children, muted, onToggleSound, onClose }) => (
       <section className="logo">
         <StarWarsLogo />
       </section>
+    </div>
+
+    <div style={{ opacity: 0.4 }}>
+      <div className="stars small" />
+      <div className="stars medium" />
+      <div className="stars large" />
     </div>
   </article>
 );

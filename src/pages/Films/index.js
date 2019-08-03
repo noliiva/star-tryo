@@ -48,12 +48,9 @@ export default ({ id }) => {
             </Typography>
             <Typography variant="body1" />
             <br />
-            <Typography variant="h6" component="span">
-              Opening crawl
-            </Typography>{' '}
-            <Typography variant="body1" component="div">
-              <Text>{opening_crawl}</Text>
-            </Typography>
+            <Text>{opening_crawl}</Text>
+            <br />
+            <br />
             <br />
             <Typography variant="h6" component="span">
               Director

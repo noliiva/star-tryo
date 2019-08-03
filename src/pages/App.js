@@ -30,7 +30,7 @@ export default () => {
         <Location>{({ location }) => <Menu location={location} />}</Location>
 
         <Router>
-          <Redirect from="/" to="/characters" noThrow />
+          <Redirect from="/" to="/films/4" noThrow />
 
           <Route path="/films">
             <Films path="/" />
